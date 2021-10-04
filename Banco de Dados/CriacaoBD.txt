@@ -1,0 +1,14 @@
+1 - Criando database
+create database Produtos;
+
+2 - Usar o database criado;
+use Produtos;
+
+3 - Criando tabela;
+Create table Produto(
+Cod_Produto INTEGER AUTO_INCREMENT NOT NULL,
+Nome_Produto VARCHAR(50) NOT NULL,
+Valor_Produto VARCHAR(50),
+Estoque VARCHAR(50),
+Cidade VARCHAR(50),
+PRIMARY KEY(Cod_Produto));
