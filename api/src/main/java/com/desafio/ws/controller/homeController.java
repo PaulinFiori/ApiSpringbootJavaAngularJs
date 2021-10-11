@@ -9,4 +9,34 @@ public class homeController {
 	public String paginaHome() {
 		return "index";
 	}
+
+	@RequestMapping("/cadastrar")
+	public String paginaCadastrar() {
+		return "Cadastrar";
+	}
+
+	@RequestMapping("/deletar")
+	public String paginaDeletar() {
+		return "Deletar";
+	}
+
+	@RequestMapping("/editar")
+	public String paginaEditar() {
+		return "Editar";
+	}
+
+	@RequestMapping("/listar")
+	public String paginaListar() {
+		return "Listar";
+	}
+
+	@RequestMapping("/buscar")
+	public String paginaBuscar() {
+		return "Buscar";
+	}
+
+	@RequestMapping("/style")
+	public String cssStyle() {
+		return "style.css";
+	}
 }

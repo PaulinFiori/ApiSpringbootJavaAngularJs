@@ -5,10 +5,39 @@ create database Produtos;
 use Produtos;
 
 3 - Criando tabela;
+
+Create table Estado(
+    Cod_Estado INTEGER AUTO_INCREMENT NOT NULL,
+    Nome_Estado VARCHAR(50) NOT NULL,
+    Abreviacao_Estado VARCHAR(4) NOT NULL,
+    PRIMARY KEY(Cod_Estado));
+
+Create table Cidade(
+    Cod_Cidade INTEGER AUTO_INCREMENT NOT NULL,
+    Nome_Cidade VARCHAR(50) NOT NULL,
+    Cod_Estado INTEGER NOT NULL,
+    PRIMARY KEY(Cod_Cidade),
+    FOREIGN KEY (Cod_Estado) REFERENCES Estado(Cod_Estado));
+
+Create table Tipo(
+    Cod_Tipo INTEGER AUTO_INCREMENT NOT NULL,
+    Nome_Tipo VARCHAR(50) NOT NULL,
+    PRIMARY KEY(Cod_Tipo));
+
+Create table Fabricante(
+    Cod_Fabricante INTEGER AUTO_INCREMENT NOT NULL,
+    Nome_Fabricante VARCHAR(50) NOT NULL,
+    PRIMARY KEY(Cod_Fabricante));
+
 Create table Produto(
-Cod_Produto INTEGER AUTO_INCREMENT NOT NULL,
-Nome_Produto VARCHAR(50) NOT NULL,
-Valor_Produto VARCHAR(50),
-Estoque VARCHAR(50),
-Cidade VARCHAR(50),
-PRIMARY KEY(Cod_Produto));
+    Cod_Produto INTEGER AUTO_INCREMENT NOT NULL,
+    Nome_Produto VARCHAR(50) NOT NULL,
+    Valor_Produto VARCHAR(50),
+    Estoque VARCHAR(50),
+    Cod_Cidade INTEGER NOT NULL,
+    Cod_Tipo INTEGER NOT NULL,
+    Cod_Fabricante INTEGER NOT NULL,
+    PRIMARY KEY(Cod_Produto),
+    FOREIGN KEY (Cod_Cidade) REFERENCES Cidade(Cod_Cidade),
+    FOREIGN KEY (Cod_Tipo) REFERENCES Tipo(Cod_Tipo),
+    FOREIGN KEY (Cod_Fabricante) REFERENCES Fabricante(Cod_Fabricante));

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="appProduto">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>API - Listar</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <script src="./js/app.js"></script>
+    </head>
+    <body ng-controller="produtoController">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <a class="navbar-brand text-light" href="/home">API</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="/cadastrar">Cadastrar</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="/deletar">Deletar</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="/editar">Editar</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="/listar">Listar <span class="sr-only">(atual)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/buscar">Buscar</a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+
+        <div class="border border-dark text-light bg-dark rounded p-3 m-3">
+            <h2>Produtos cadastrados:</h2>
+
+            <button type="button" class="btn btn-success" ng-click="carregarProdutos()">Mostrar todos os produtos</button>
+            <button type="button" class="btn btn-danger" ng-click="apagarProdutos()">Apagar todos os produtos</button>
+
+            <input type="search" ng-model="pesquisa" placeholder="Filtrar por codigo..." aria-label="Filtrar por codigo" class="mt-1"/>
+
+            <div class="border border-primary text-light bg-primary rounded mt-1 pb-1" ng-repeat="pro in produtos | filter:pesquisa as results track by pro.codProduto">
+                Código do Produto: {{pro.codProduto}} <br/> 
+                Nome do produto: {{pro.nomeProduto}} <br/> 
+                Valor do produto: {{pro.valorProduto}} <br/> 
+                Estoque: {{pro.estoque}} <br/> 
+                Cidade: {{pro.cidade.nomeCidade + " - " + pro.codCidade.codEstado.nomeEstado}}<br/>
+                Tipo: {{pro.tipo.nomeTipo}} <br/>
+                Fabricante: {{pro.fabricante.nomeFabricante}} <br/>
+            </div><br/><br/>
+
+            <h2>Cidades:</h2>
+
+            <button type="button" class="btn btn-success" ng-click="carregarCidades()">Mostrar Todas as cidades</button>
+            <button type="button" class="btn btn-danger" ng-click="apagarCidades()">Apagar todas as cidades</button>
+            <input type="search" ng-model="pesquisaCidade" placeholder="Filtrar por cidade..." aria-label="Filtrar por cidade" class="mt-1"/>
+            
+            <div class="border border-primary text-light bg-primary rounded mt-1 pb-1" ng-repeat="ci in cidades | filter:pesquisaCidade as results track by ci.nomeCidade">
+                Cidade: {{ci.nomeCidade}} | Estado: {{ci.estado.nomeEstado}}
+            </div>
+        </div>
+
+        <footer class="bg-dark text-center text-lg-start fixed-bottom">
+            <!-- Copyright -->
+            <div class="text-center text-light p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+              © 2021 Copyright by PauloFiori
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </body>
+</html>

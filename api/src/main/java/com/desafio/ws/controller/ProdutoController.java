@@ -1,6 +1,5 @@
 package com.desafio.ws.controller;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -33,18 +32,6 @@ public class ProdutoController {
 	public ResponseEntity<Collection<Produto>> buscarTodosProdutos() {
 		Collection<Produto> produtosBuscados = produtoService.buscarTodos();
 		return new ResponseEntity<>(produtosBuscados, HttpStatus.OK);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/cidades", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ArrayList<String>> buscarTodasCidades() {
-		Collection<Produto> cidadesBuscados = produtoService.buscarTodos();
-		ArrayList<String> todasCidades = new ArrayList<String>();
-		
-		for(Produto produto : cidadesBuscados) {
-			todasCidades.add(produto.getCidade());
-		}
-		
-		return new ResponseEntity<>(todasCidades, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/products/{id}", produces=MediaType.APPLICATION_JSON_VALUE)

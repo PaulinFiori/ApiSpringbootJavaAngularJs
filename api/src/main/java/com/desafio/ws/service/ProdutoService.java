@@ -5,8 +5,8 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.desafio.ws.model.Produto;
-import com.desafio.ws.repository.ProdutoRepository;
+import com.desafio.ws.model.*;
+import com.desafio.ws.repository.*;
 
 @Service
 public class ProdutoService {
@@ -31,8 +31,8 @@ public class ProdutoService {
 	}
 	
 	public Produto buscarProdutoId(Integer id) {
-	      return produtoRepository.findById(id).get();
-	    }
+	    return produtoRepository.findById(id).get();
+	}
 	
 	public Produto alterar(Produto produto) {
 		return produtoRepository.save(produto);

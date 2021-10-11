@@ -1,11 +1,6 @@
 package com.desafio.ws.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Produto")
@@ -25,8 +20,17 @@ public class Produto {
 	@Column(name = "Estoque", nullable = false, length = 50)
 	private String estoque;
 	
-	@Column(name = "Cidade", nullable = false, length = 50)
-	private String cidade;
+	@ManyToOne
+    @JoinColumn(name = "Cod_Cidade")
+	private Cidade cidade;
+
+	@ManyToOne
+    @JoinColumn(name = "Cod_Tipo")
+	private Tipo tipo;
+
+	@ManyToOne
+    @JoinColumn(name = "Cod_Fabricante")
+	private Fabricante fabricante;
 
 	public Integer getCodProduto() {
 		return codProduto;
@@ -60,11 +64,27 @@ public class Produto {
 		this.estoque = estoque;
 	}
 
-	public String getCidade() {
+	public Cidade getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(String cidade) {
+	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+	public Tipo getTipo(){
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public Fabricante getFabricante() {
+		return fabricante;
+	}
+
+	public void setFabricante(Fabricante fabricante) {
+		this.fabricante = fabricante;
 	}
 }

@@ -25,7 +25,12 @@ O projeto do frontend, deverá ser feito com o framework angularJs.
 
 O projeto Backend devera ser feito em springboot(java) com o banco de dados mysql.
 
-
-Após o fim do projeto disponibilizar no github.
-
-A data limite de entrega do projeto será de 7 dias a partir do recebimento do teste.
+Extras:
+1º - Separar páginas (1 página para cadastro, Listagem, edição, deletar)
+2º - Melhorar html e css - Usar o bootstrap.
+2º - Separar cidade em uma nova tabela e tabela de produto relacionar com a cidade.
+3º - Tipo de produto (Novo ou usado) - Tabela separada.
+4º - Fabricante (Tabela separada).
+5º - Na cidade colocar o estado. Estado é uma tabela separada.
+6º - Ter uma página de busca. Aonde possa buscar pela cidade ou pelo estado ou pelo nome do produto.
+7º - Ao cadastrar o produto se ele for mais de 100 R$ exibir um alerta perguntando se o usuário realmente deseja prosseguir.
