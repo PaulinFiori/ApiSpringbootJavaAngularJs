@@ -62,18 +62,37 @@
           <button type="button" class="btn btn-primary mx-3" ng-click="buscarPor()">Pesquisar</button>
           <button type="button" class="btn btn-danger" ng-click="apagarBusca()">Apagar tudo</button><br/><br/>
 
-          <div class="border border-primary text-light bg-primary rounded p-3 m-3" ng-repeat="bus in busca2">
-            Código do Produto: {{bus.codProduto}} <br/> 
-            Nome do produto: {{bus.nomeProduto}} <br/> 
-            Valor do produto: {{bus.valorProduto}} <br/> 
-            Estoque: {{bus.estoque}} <br/> 
-            Cidade: {{bus.cidade.nomeCidade + " - " + bus.cidade.estado.nomeEstado}}<br/>
-            Tipo: {{bus.tipo.nomeTipo}} <br/>
-            Fabricante: {{bus.fabricante.nomeFabricante}} <br/>
-          </div>
+          <div class="border border-light text-dark bg-light rounded mt-1 pb-1">
+            <table class="table mt-1 pb-1 text-center text-dark">
+              <thead>
+                <tr>
+                  <th scope="col">Código do Produto</td>
+                  <th scope="col">Nome do produto</td>
+                  <th scope="col">Valor do produto</td>
+                  <th scope="col">Estoque</td>
+                  <th scope="col">Cidade</td>
+                  <th scope="col">Estado</td>
+                  <th scope="col">Tipo</td>
+                  <th scope="col">Fabricante</td>
+                  </th>
+              </thead>
+              <tbody ng-repeat="bus in busca2">
+                <tr>
+                  <th scope="row">{{bus.codProduto}}</th>
+                  <td>{{bus.nomeProduto}}</td>
+                  <td>{{bus.valorProduto}}</td>
+                  <td>{{bus.estoque}}</td>
+                  <td>{{bus.cidade.nomeCidade}}</td>
+                  <td>{{bus.cidade.estado.nomeEstado}}</td>
+                  <td>{{bus.tipo.nomeTipo}}</td>
+                  <td>{{bus.fabricante.nomeFabricante}}</td>
+                </tr>
+              </tbody>
+            </table>
         </form><br/>
+      </div>
 
-        <form class="border border-dark text-light bg-dark rounded p-3 m-3">
+      <form class="border border-dark text-light bg-dark rounded p-3 m-3">
             <h2>Pesquisar por código</h2>
 
             <label>Código:</label>
@@ -82,14 +101,33 @@
             <button type="button" class="btn btn-success" ng-click="carregarProdutosCodigo(idPesquisa)">Pesquisar</button>
             <button type="button" class="btn btn-danger" ng-click="apagarProdutosCodigo()">Apagar todos os produtos</button><br/><br/>
 
-            <div class="border border-primary text-light bg-primary rounded m-3 p-3" >
-                Código do Produto: {{produtoPesquisadoCodigo.codProduto}} <br/> 
-                Nome do produto: {{produtoPesquisadoCodigo.nomeProduto}} <br/> 
-                Valor do produto: {{produtoPesquisadoCodigo.valorProduto}} <br/> 
-                Estoque: {{produtoPesquisadoCodigo.estoque}} <br/> 
-                Cidade: {{produtoPesquisadoCodigo.codCidade.nomeCidade + " - " + produtoPesquisadoCodigo.codCidade.codEstado.nomeEstado}}<br/>
-                Tipo: {{produtoPesquisadoCodigo.codTipo.nomeTipo}} <br/>
-                Fabricante: {{produtoPesquisadoCodigo.codFabricante.nomeFabricante}} <br/>
+            <div class="border border-light text-dark bg-light rounded mt-1 pb-1">
+                <table class="table mt-1 pb-1 text-center text-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">Código do Produto</td>
+                      <th scope="col">Nome do produto</td>
+                      <th scope="col">Valor do produto</td>
+                      <th scope="col">Estoque</td>
+                      <th scope="col">Cidade</td>
+                      <th scope="col">Estado</td>
+                      <th scope="col">Tipo</td>
+                      <th scope="col">Fabricante</td>
+                      </th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">{{produtoPesquisadoCodigo.codProduto}}</th>
+                      <td>{{produtoPesquisadoCodigo.nomeProduto}}</td>
+                      <td>{{produtoPesquisadoCodigo.valorProduto}}</td>
+                      <td>{{produtoPesquisadoCodigo.estoque}}</td>
+                      <td>{{produtoPesquisadoCodigo.cidade.nomeCidade}}</td>
+                      <td>{{produtoPesquisadoCodigo.cidade.estado.nomeEstado}}</td>
+                      <td>{{produtoPesquisadoCodigo.tipo.nomeTipo}}</td>
+                      <td>{{produtoPesquisadoCodigo.fabricante.nomeFabricante}}</td>
+                    </tr>
+                  </tbody>
+                </table>
             </div>
         </form><br/><br/>
 

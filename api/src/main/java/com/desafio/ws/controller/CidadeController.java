@@ -22,7 +22,7 @@ public class CidadeController {
     //End Points
     @RequestMapping(method=RequestMethod.GET, value="/cidades", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Cidade>> buscarTodasCidades() {
-		Collection<Cidade> produtosBuscados = cidadeService.buscarTodos();
-		return new ResponseEntity<>(produtosBuscados, HttpStatus.OK);
+		Collection<Cidade> cidadeBuscados = cidadeService.buscarTodos();
+		return new ResponseEntity<>(cidadeBuscados, HttpStatus.OK);
 	}
 }

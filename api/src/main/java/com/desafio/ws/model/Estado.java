@@ -17,7 +17,6 @@ public class Estado {
     @Column(name = "Abreviacao_Estado", nullable = false, length = 50)
     private String abreviacaoEstado;
 
-
     public Integer getCodEstado() {
         return this.codEstado;
     }

@@ -6,7 +6,29 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 	$scope.produtos = [];
 	$scope.produto = {};
 
-	$scope.produtoalterado = {};
+	$scope.produtoalterado = {
+		codProduto: 0,
+		nomeProduto: "",
+		valorProduto: "",
+		estoque: "",
+		cidade: {
+			codCidade: "",
+			nomeCidade: "",
+			estado: {
+				codEstado: "",
+				nomeEstado: "",
+				abreviacaoEstado: ""
+			}
+		},
+		tipo: {
+			codTipo: "",
+			nomeTipo: ""
+		},
+		fabricante: {
+			codFabricante: "",
+			nomeFabricante: ""
+		}
+	};
 
 	$scope.idPesquisa =  null;
 	$scope.produtoPesquisadoCodigo = [];
@@ -15,6 +37,9 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 	$scope.buscaCodCidade = null;
 	$scope.buscaCodEstado = null;
 	$scope.busca2 = [];
+
+	$scope.real = null;
+	$scope.centavo = null
 
 	$scope.codProdutoDeletar = null;
 	
@@ -30,7 +55,9 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 			$scope.codProdutoDeletar=null;
 			$scope.cidades=[];
 			$scope.busca2=[];
+			$scope.produtoalterado={};
 			$scope.produtos=response.data;
+			console.log(response.data);
 		},function(response){
 			$window.alert("Status: " + response.status + " Erro:" + response.data.message);
 			console.log(response.data);
@@ -39,6 +66,9 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 	};
 		
 	$scope.cadastrarProduto = function(){
+		valortotal = "R$ " + $scope.real + "." + $scope.centavo;
+		$scope.produto.valorProduto = valortotal;
+
 		valor = $scope.produto.valorProduto.split(" ");
 		valor2 = parseFloat(valor[1]);
 
@@ -55,14 +85,32 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 						$scope.idPesquisa=null;
 						$scope.codProdutoDeletar=null;
 						$scope.busca2=[];
+						$scope.produtoalterado={};
 						$scope.cidades=[];
 					},function(response){
 						$window.alert("Status: " + response.status + " Erro:" + response.data.message);
 						console.log(response.data);
 						console.log(response.status);
 				});
-			}
-			else $window.alert("Produto não cadastrado!");
+			} else $window.alert("Produto não cadastrado!");
+		} else {
+			$http({
+				method:'POST', 
+				url:'http://localhost:8090/products',
+				data:$scope.produto
+				}).then(function(response){
+					$window.alert("Cadastrado com sucesso!");  
+					$scope.produtos=[];
+					$scope.idPesquisa=null;
+					$scope.codProdutoDeletar=null;
+					$scope.busca2=[];
+					$scope.produtoalterado={};
+					$scope.cidades=[];
+				},function(response){
+					$window.alert("Status: " + response.status + " Erro:" + response.data.message);
+					console.log(response.data);
+					console.log(response.status);
+			});
 		}
 	};
 
@@ -71,26 +119,31 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 	};
 	
 	$scope.deletarProduto = function(codProdutoDeletar){
-		$http({
-		method:'DELETE', 
-		url:'http://localhost:8090/products/' + codProdutoDeletar,
-		}).then(function(response){
-			$window.alert("Deletado com sucesso!");  
-			$scope.produtos=[];
-			$scope.idPesquisa=null;
-			$scope.codProdutoDeletar=null;
-			$scope.busca2=[];
-			$scope.cidades=[];
-		},function(response){
-			$window.alert("Status: " + response.status + " Erro:" + response.data.message);
-			console.log(response.data);
-			console.log(response.status);
-		});
+		confirmarApagar = $window.confirm("Deseja deletar o produto " + codProdutoDeletar + "?"); 
+		if(confirmarApagar == true) {
+			$http({
+				method:'DELETE', 
+				url:'http://localhost:8090/products/' + codProdutoDeletar,
+				}).then(function(response){
+					$window.alert("Deletado com sucesso!");  
+					$scope.produtos=[];
+					$scope.idPesquisa=null;
+					$scope.codProdutoDeletar=null;
+					$scope.busca2=[];
+					$scope.produtoalterado={};
+					$scope.cidades=[];
+				},function(response){
+					$window.alert("Status: " + response.status + " Erro:" + response.data.message);
+					console.log(response.data);
+					console.log(response.status);
+				});
+		} else $window.alert("Produto não deletado!");
 	};
 	
 	$scope.alterarProduto = function(){
-		valor = $scope.produtoalterado.valorProduto.split(" ");
-		valor2 = parseFloat(valor[1]);
+		console.log($scope.produtoalterado);
+		valor1 = $scope.produtoalterado.valorProduto.split(" ");
+		valor2 = parseFloat(valor1[1]);
 
 		if(valor2 > 100.00) {
 			confirmarAlterar = $window.confirm("O valor é maior do que R$ 100,00, deseja cadastrar?"); 
@@ -104,6 +157,7 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 						$scope.idPesquisa=null;
 						$scope.codProdutoDeletar=null;
 						$scope.busca2=[];
+						$scope.produtoalterado={};
 						$scope.cidades=[];
 						$window.alert("Alterado com sucesso!");  
 					},function(response){
@@ -111,10 +165,57 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 						console.log(response.data);
 						console.log(response.status);
 				});
-			}
-			else $window.alert("Produto não alterado!");
+			} else $window.alert("Produto não alterado!");
+		} else { 
+			$http({
+				method:'PUT',
+				url:'http://localhost:8090/products',
+				data: $scope.produtoalterado
+				}).then(function(response){
+					$scope.produtos=[];
+					$scope.idPesquisa=null;
+					$scope.codProdutoDeletar=null;
+					$scope.produtoalterado={};
+					$scope.busca2=[];
+					$scope.cidades=[];
+					$window.alert("Alterado com sucesso!");  
+				},function(response){
+					$window.alert("Status: " + response.status + " Erro:" + response.data.message);
+					console.log(response.data);
+					console.log(response.status);
+			});
 		}
 	};
+
+	$scope.alterarProduto2 = function(produto){
+		$window.localStorage.setItem("codProduto", produto.codProduto);
+		$window.localStorage.setItem("nomeProduto", produto.nomeProduto);
+		$window.localStorage.setItem("valor", produto.valorProduto);
+		$window.localStorage.setItem("estoque", produto.estoque);
+		$window.localStorage.setItem("cidade", produto.cidade.codCidade);
+		$window.localStorage.setItem("tipo", produto.tipo.codTipo);
+		$window.localStorage.setItem("fabricante", produto.fabricante.codFabricante);
+		$window.location.href = "http://localhost:8090/editar";
+	};
+
+	$scope.carregarAlterarProduto = function() {
+		$scope.produtoalterado.codProduto = localStorage.getItem("codProduto");
+		$scope.produtoalterado.nomeProduto = localStorage.getItem("nomeProduto");
+
+		$scope.produtoalterado.valorProduto = localStorage.getItem("valor");
+		valor1 = $scope.produtoalterado.valorProduto.split(" ");
+		valor2 = valor1[1].split(".");
+		$scope.real = valor2[0];
+		$scope.centavo = valor2[1];
+
+		$scope.produtoalterado.estoque = localStorage.getItem("estoque");
+		$scope.produtoalterado.cidade.codCidade = localStorage.getItem("cidade");
+		$scope.produtoalterado.tipo.codTipo = localStorage.getItem("tipo");
+		$scope.produtoalterado.fabricante.codFabricante = localStorage.getItem("fabricante");
+
+		valortotal = "R$ " + $scope.real + "." + $scope.centavo;
+		$scope.produtoalterado.valorProduto = valortotal;
+	}
 	
 	$scope.cancelarAlterarProduto = function(){
 		$scope.produtoalterado={};
@@ -129,6 +230,7 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 			$scope.idPesquisa=null;
 			$scope.codProdutoDeletar=null;
 			$scope.cidades=[];
+			$scope.produtoalterado={};
 			$scope.busca2=[];
 			$scope.produtoPesquisadoCodigo=response.data;
 		},function(response){
@@ -155,6 +257,7 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 			$scope.idPesquisa=null;
 			$scope.codProdutoDeletar=null;
 			$scope.busca2=[];
+			$scope.produtoalterado={};
 			$scope.cidades=[];
 			$scope.cidades=response.data;
 		},function(response){
@@ -177,6 +280,7 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 				$scope.idPesquisa=null;
 				$scope.codProdutoDeletar=null;
 				$scope.busca2=[];
+				$scope.produtoalterado={};
 				$scope.cidades=[];
 
 				for(var i = 0; i < response.data.length; i++) {
@@ -193,7 +297,7 @@ appProduto.controller("produtoController", function($scope, $http, $window){
 				console.log(response.data);
 				console.log(response.status);
 			});
-	}
+	};
 
 	$scope.apagarBusca = function(){
 		$scope.busca2=[];

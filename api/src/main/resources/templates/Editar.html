@@ -37,45 +37,57 @@
             </div>
         </nav>
 
-        <form class="border border-dark text-light bg-dark rounded pb-1 m-3 p-3">
+        <form class="border border-dark text-light bg-dark rounded pb-1 m-3 p-3" ng-init="carregarAlterarProduto()">
             <h2>Editar</h2>
 
-            <label>Código:</label>
-            <input type="text" ng-model="produtoalterado.codProduto"></input><br/><br/>
+            <div class="input-group mb-3 w-25">
+              <label class="mt-2">Código do produto:</label>&nbsp;
+              <input type="text" class="form-control" aria-label="codigo" ng-model="produtoalterado.codProduto" readonly>
+            </div>
 
-            <label>Nome:</label>
-            <input type="text" ng-model="produtoalterado.nomeProduto"></input><br/><br/>
+            <div class="input-group mb-3 w-25">
+              <label class="mt-2">Nome:</label>&nbsp;
+              <input type="text" class="form-control" aria-label="nome" ng-model="produtoalterado.nomeProduto">
+            </div>
 
-            <label>Valor:</label>
-            <input type="text" ng-model="produtoalterado.valorProduto" placeholder="R$ 00.00"></input><br/><br/>
+            <div class="input-group w-25 mb-3" ng-model="produtoalterado.valorProduto">
+              <label class="mt-2">Valor:</label>&nbsp;
+              <div class="input-group-prepend">
+                <span class="input-group-text">R$</span>
+              </div>
+              <input type="text" class="form-control" aria-label="valor1" ng-model="real">
+              <div class="input-group-append">
+                <span class="input-group-text">.</span>
+              </div>
+              <input type="text" class="form-control" aria-label="valor2" ng-model="centavo">
+            </div>
 
-            <label>Estoque:</label>
-            <input type="text" ng-model="produtoalterado.estoque"></input><br/><br/>
+            <div class="input-group mb-3 w-25">
+              <label class="mt-2">Estoque:</label>&nbsp;
+              <input type="text" class="form-control" aria-label="nome" ng-model="produtoalterado.estoque">
+            </div>
 
-            <label>Cidade:</label>
-            <select ng-model="produtoalterado.cidade.codCidade">
+            <select class="form-select w-25" aria-label="cidade" ng-model="produtoalterado.cidade.codCidade">
               <option value="" selected>Selecione uma cidade</option>
               <option value="1">Belo Horizonte</option>
               <option value="2">São Paulo</option>
               <option value="3">Rio de Janeiro</option>
-            </select><br/><br/>
+            </select><br/>
 
-            <label>Tipo do produto:</label>
-            <select ng-model="produtoalterado.tipo.codTipo">
+            <select class="form-select w-25" aria-label="tipo" ng-model="produtoalterado.tipo.codTipo">
               <option value="" selected>Selecione um tipo</option>
-              <option value="1" ng-model="">Novo</option>
-              <option value="2" ng-model="">Usado</option>
-            </select><br/><br/>
+              <option value="1">Novo</option>
+              <option value="2">Usado</option>
+            </select><br/>
 
-            <label>Fabricante:</label>
-            <select ng-model="produtoalterado.fabricante.codFabricante">
+            <select class="form-select w-25" aria-label="fabricante" ng-model="produtoalterado.fabricante.codFabricante">
               <option value="" selected>Selecione um fabricante</option>
               <option value="1">Coca-cola</option>
               <option value="2">Nike</option>
               <option value="3">Adidas</option>
               <option value="4">Apple</option>
-              <option value="5">Microsot</option>
-            </select><br/><br/>
+              <option value="5">Microsoft</option>
+            </select><br/>
 
             <button type="button" class="btn btn-success" ng-click="alterarProduto()">Alterar</button>
             <button type="button" class="btn btn-danger" ng-click="cancelarAlterarProduto()">Limpar</button>
